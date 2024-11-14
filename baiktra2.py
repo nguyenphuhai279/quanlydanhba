@@ -12,9 +12,9 @@ Viết chương trình chính cho phép người dùng thực hiện các chức
 - Hiển thị danh sách học viên
 """
 danh_sach = {}
-diem = globals 
-diem_moi = globals
-ho_ten = globals
+# diem = globals 
+# diem_moi = globals
+# ho_ten = globals
 def them_hoc_vien(danh_sach, ho_ten, diem):
     them_hoc_vien = {"ho_ten": ho_ten, "diem": diem}
     danh_sach[ho_ten] = them_hoc_vien
@@ -30,6 +30,7 @@ def hien_thi_danh_sach_hoc_vien():
     for i in danh_sach:
         print(f"họ tên '{i}' điểm '{danh_sach[i]['diem']}'")
 while True:
+    print("\n Menu:")
     print("1. Thêm học viên mới")
     print("2. Tìm kiếm học viên")
     print("3. Cập nhật điểm học viên")
@@ -37,15 +38,30 @@ while True:
     print("5. Thoát chương trình")
     chon = int(input("lựa chọn của bạn: "))
     if chon == 1:
-        ho_ten = input("Ho ten hoc vien can them: ")
-        diem = float(input("Diem hoc vien can them: "))
+        ho_ten = input("Họ tên học viên cần thêm: ")
+        if ho_ten in danh_sach:
+            print("Thông tin học viên đã có trong danh sách bạn có muốn thay thế ko. Nếu muốn thay thế chọn 1 ko muốn chọn 2")
+            lua_chon = input("Chọn (1/2): ")
+            if lua_chon == '1':
+                del danh_sach[ho_ten]
+                print("Đã thay học viên")
+            elif lua_chon == '2':
+                pass
+        diem = float(input("Điểm học viên cần thêm: "))
         them_hoc_vien(danh_sach, ho_ten, diem)
+        print("Thêm học viên thành công")
     elif chon == 2:
-        ho_ten = input("Ho ten hoc vien can tim: ")
-        hoc_vien = tim_hoc_vien(danh_sach, ho_ten)
+        ho_ten = input("Họ tên học viên cần tìm: ")
+        if danh_sach == None:
+            print("Không tìm thấy học viên")
+        else:
+            hoc_vien = tim_hoc_vien(danh_sach, ho_ten)
     elif chon == 3:
-        ho_ten = input("Ho ten hoc vien can cap nhat diem: ")
-        diem_moi = float(input("Diem moi: "))
+        ho_ten = (input("Họ tên học viên cần cập nhập điểm: "))
+        if ho_ten not in danh_sach:
+            print("Không tìm thấy học viên")
+        else:
+            diem_moi = float(input("Điểm mới cần cập nhật: "))
         cap_nhat_diem(danh_sach, ho_ten, diem_moi)
     elif chon == 4:
         hien_thi_danh_sach_hoc_vien()
